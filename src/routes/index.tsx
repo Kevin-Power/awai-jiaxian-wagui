@@ -20,6 +20,7 @@ import { OrderForm } from "@/components/shop/order-form";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MENU, REVIEWS, SHOP } from "@/data/menu";
+import { images } from "@/assets/images";
 import { useCart } from "@/store/cart";
 
 export const Route = createFileRoute("/")({ component: Home });
@@ -87,7 +88,7 @@ function Home() {
           <div className="animate-rise stagger-2 relative order-1 pb-10 lg:order-2 lg:pb-6">
             <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
               <img
-                src="/images/hero.jpg"
+                src={images.hero}
                 alt="阿歪小吃店甲仙碗粿肉粽"
                 className="aspect-[5/4] w-full object-cover sm:aspect-[4/3]"
                 width={1176}
@@ -221,7 +222,7 @@ function Home() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16">
           <div className="overflow-hidden rounded-2xl border border-border shadow-card">
             <img
-              src="/images/shop.jpg"
+              src={images.shop}
               alt="阿歪小吃店古色古香用餐環境"
               className="aspect-[4/3] w-full object-cover"
               loading="lazy"
@@ -448,7 +449,7 @@ function Home() {
             <div className="overflow-hidden rounded-2xl border border-border bg-bg-ink text-fg-on-ink shadow-card">
               <div className="relative aspect-[4/3] sm:aspect-auto sm:min-h-[360px]">
                 <img
-                  src="/images/shop.jpg"
+                  src={images.shop}
                   alt=""
                   className="absolute inset-0 h-full w-full object-cover opacity-40"
                   loading="lazy"

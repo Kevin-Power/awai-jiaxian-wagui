@@ -1,3 +1,5 @@
+import { images } from "@/assets/images";
+
 export type MenuCategory = "wagui" | "zongzi" | "soup" | "side";
 
 export type MenuItem = {
@@ -49,7 +51,7 @@ export const MENU: MenuItem[] = [
       "招牌古早味碗粿，軟嫩綿密。在地人氣最高，中午前易售完。",
     price: 30,
     category: "wagui",
-    image: "/images/wagui.jpg",
+    image: images.wagui,
     badge: "招牌",
     popular: true,
   },
@@ -60,7 +62,7 @@ export const MENU: MenuItem[] = [
     description: "碗粿加蛋，層次更豐富。一口軟嫩懷舊味。",
     price: 35,
     category: "wagui",
-    image: "/images/wagui.jpg",
+    image: images.wagui,
     popular: true,
   },
   {
@@ -70,7 +72,7 @@ export const MENU: MenuItem[] = [
     description: "南部風味肉粽，花生香氣足，配蒜泥更對味。",
     price: 40,
     category: "zongzi",
-    image: "/images/zongzi.jpg",
+    image: images.zongzi,
     badge: "經典",
     popular: true,
   },
@@ -81,7 +83,7 @@ export const MENU: MenuItem[] = [
     description: "傳統工法包製，香氣四溢，早餐外帶方便。",
     price: 40,
     category: "zongzi",
-    image: "/images/zongzi.jpg",
+    image: images.zongzi,
   },
   {
     id: "s-fish",
@@ -90,7 +92,7 @@ export const MENU: MenuItem[] = [
     description: "店家主打之一，堅持傳統工法，搭配麵條或米粉。",
     price: 55,
     category: "soup",
-    image: "/images/hero.jpg",
+    image: images.hero,
     badge: "主打",
   },
   {
@@ -100,7 +102,7 @@ export const MENU: MenuItem[] = [
     description: "羹湯搭配炸魚等配料，份量扎實，可泡魚塊同吃。",
     price: 65,
     category: "soup",
-    image: "/images/hero.jpg",
+    image: images.hero,
     popular: true,
   },
   {
@@ -110,7 +112,7 @@ export const MENU: MenuItem[] = [
     description: "薄芡清甜、味道偏清淡；可加蒜泥、辣醬調味。",
     price: 50,
     category: "soup",
-    image: "/images/shop.jpg",
+    image: images.shop,
   },
   {
     id: "x-fish",
@@ -120,7 +122,7 @@ export const MENU: MenuItem[] = [
       "在地必點。外酥內軟、魚肉鮮嫩；乾吃或泡羹湯都好吃。",
     price: 65,
     category: "side",
-    image: "/images/shop.jpg",
+    image: images.shop,
     badge: "必點",
     popular: true,
   },
