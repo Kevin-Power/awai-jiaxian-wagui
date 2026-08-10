@@ -14,7 +14,7 @@ type CartState = {
   lines: CartLine[];
   open: boolean;
   setOpen: (open: boolean) => void;
-  add: (item: MenuItem, qty?: number) => void;
+  add: (item: MenuItem, opts?: { qty?: number; size?: "small" | "large" }) => void;
   remove: (id: string) => void;
   setQty: (id: string, qty: number) => void;
   clear: () => void;
@@ -28,13 +28,20 @@ export const useCart = create<CartState>()(
       lines: [],
       open: false,
       setOpen: (open) => set({ open }),
-      add: (item, qty = 1) => {
+      add: (item, opts) => {
+        const qty = opts?.qty ?? 1;
+        const size = opts?.size ?? "small";
+        const isLarge = size === "large" && item.priceLarge != null;
+        const price = isLarge ? (item.priceLarge as number) : item.price;
+        const lineId = isLarge ? `${item.id}-l` : item.id;
+        const name = isLarge ? `${item.name}（大）` : item.priceLarge != null ? `${item.name}（小）` : item.name;
+
         set((state) => {
-          const existing = state.lines.find((l) => l.id === item.id);
+          const existing = state.lines.find((l) => l.id === lineId);
           if (existing) {
             return {
               lines: state.lines.map((l) =>
-                l.id === item.id ? { ...l, qty: l.qty + qty } : l,
+                l.id === lineId ? { ...l, qty: l.qty + qty } : l,
               ),
               open: true,
             };
@@ -43,9 +50,9 @@ export const useCart = create<CartState>()(
             lines: [
               ...state.lines,
               {
-                id: item.id,
-                name: item.name,
-                price: item.price,
+                id: lineId,
+                name,
+                price,
                 qty,
                 image: item.image,
               },
@@ -67,6 +74,6 @@ export const useCart = create<CartState>()(
       totalQty: () => get().lines.reduce((n, l) => n + l.qty, 0),
       totalPrice: () => get().lines.reduce((n, l) => n + l.price * l.qty, 0),
     }),
-    { name: "awai-wagui-cart" },
+    { name: "awai-wagui-cart-v2" },
   ),
 );

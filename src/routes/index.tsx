@@ -59,21 +59,16 @@ function Home() {
                 </a>
               </Button>
               <Button asChild variant="secondary" size="lg">
-                <a
-                  href={SHOP.instagramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Instagram className="size-4" />
-                  @{SHOP.instagram}
+                <a href={SHOP.instagramUrl} target="_blank" rel="noreferrer">
+                  <Instagram className="size-4" />@{SHOP.instagram}
                 </a>
               </Button>
             </div>
             <dl className="mt-10 grid max-w-md grid-cols-3 gap-4 border-t border-border pt-8">
               {[
-                { k: "傳承", v: "數十年" },
+                { k: "碗粿", v: "35" },
+                { k: "花生粽", v: "45" },
                 { k: "營業", v: "06:30" },
-                { k: "電話", v: "訂購" },
               ].map((stat) => (
                 <div key={stat.k}>
                   <dt className="text-xs text-fg-subtle">{stat.k}</dt>
@@ -91,8 +86,6 @@ function Home() {
                 src={images.hero}
                 alt="阿歪小吃店甲仙碗粿肉粽"
                 className="aspect-[5/4] w-full object-cover sm:aspect-[4/3]"
-                width={1176}
-                height={784}
               />
             </div>
             <div className="absolute bottom-0 left-4 right-4 sm:left-auto sm:right-6 sm:w-64">
@@ -103,16 +96,13 @@ function Home() {
                 <p className="mt-1 font-display text-base font-semibold">
                   @{SHOP.instagram}
                 </p>
-                <p className="mt-1 text-sm text-fg-muted">
-                  店休、活動看這裡
-                </p>
+                <p className="mt-1 text-sm text-fg-muted">店休、活動看這裡</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust strip */}
       <section className="border-y border-border bg-bg-elevated">
         <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6">
           {[
@@ -145,7 +135,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Popular */}
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -195,13 +184,20 @@ function Home() {
                   </div>
                   <div className="mt-auto flex items-center justify-between gap-2 pt-1">
                     <span className="font-display text-lg font-semibold tabular-nums text-primary">
-                      NT$ {item.price}
-                      <span className="text-xs font-sans font-normal text-fg-muted">
-                        {" "}
-                        起
-                      </span>
+                      {item.priceLarge != null
+                        ? `小 ${item.price}／大 ${item.priceLarge}`
+                        : `NT$ ${item.price}`}
                     </span>
-                    <Button type="button" size="sm" onClick={() => add(item)}>
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={() =>
+                        add(
+                          item,
+                          item.priceLarge != null ? { size: "small" } : undefined,
+                        )
+                      }
+                    >
                       加入
                     </Button>
                   </div>
@@ -214,7 +210,6 @@ function Home() {
 
       <MenuSection />
 
-      {/* Story */}
       <section
         id="story"
         className="scroll-mt-24 border-t border-border bg-bg-subtle py-20 sm:py-24"
@@ -240,11 +235,7 @@ function Home() {
             <p className="mt-5 leading-relaxed text-fg-muted">{SHOP.story}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild>
-                <a
-                  href={SHOP.instagramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={SHOP.instagramUrl} target="_blank" rel="noreferrer">
                   <Instagram className="size-4" />
                   追蹤 @{SHOP.instagram}
                 </a>
@@ -257,7 +248,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Tips */}
       <section className="border-t border-border bg-bg py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
@@ -284,7 +274,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Reviews */}
       <section id="reviews" className="scroll-mt-24 py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
@@ -322,7 +311,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Visit */}
       <section
         id="visit"
         className="scroll-mt-24 border-t border-border bg-bg-elevated py-20 sm:py-24"
@@ -482,7 +470,6 @@ function Home() {
 
       <OrderForm />
 
-      {/* Footer */}
       <footer className="border-t border-border bg-bg py-12">
         <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:flex-row sm:items-start sm:justify-between sm:px-6">
           <div>
@@ -496,8 +483,7 @@ function Home() {
               rel="noreferrer"
               className="mt-2 inline-flex items-center gap-1.5 text-sm text-fg-muted hover:text-primary"
             >
-              <Instagram className="size-3.5" />
-              @{SHOP.instagram}
+              <Instagram className="size-3.5" />@{SHOP.instagram}
             </a>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-fg-muted">
@@ -526,7 +512,7 @@ function Home() {
         <div className="mx-auto mt-8 max-w-6xl border-t border-border px-4 pt-6 sm:px-6">
           <p className="text-xs text-fg-subtle">
             © {new Date().getFullYear()} {SHOP.name} · 高雄前鎮 ·
-            非官方粉絲站示範 · 資訊參考店家公開 IG 與食記
+            非官方粉絲站示範 · 價目依店內菜單看板
           </p>
         </div>
       </footer>

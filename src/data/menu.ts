@@ -8,6 +8,7 @@ export type MenuItem = {
   nameEn: string;
   description: string;
   price: number;
+  priceLarge?: number;
   category: MenuCategory;
   image: string;
   badge?: string;
@@ -33,85 +34,94 @@ export const SHOP = {
   ],
   story:
     "一家傳承數十年的在地小吃店。碗粿、肉粽、魚焿——堅持傳統工法，維持老一輩的味道，讓每一口都充滿懷舊風味。官方帳號 @a_wai_127 會公布店休與季節活動，來店前記得追蹤一下。",
-  note: "參考價，實際以現場公告為準。碗粿中午前常售完。",
+  note: "價目依店內菜單看板。羹湯可選米粉、麵或米粉麵（分以下 4 種）。",
   tips: [
     "營業 06:30–15:00；週四、五多為公休，臨時店休請看 Instagram @a_wai_127。",
     "招牌碗粿熱銷，中午前常完售——想吃請早。",
-    "內用、外帶人潮都不少；每桌備有蒜泥、辣醬等醬料。",
-    "點羹類可選擇搭配的麵條；炸魚可乾吃或泡進羹湯。",
+    "羹湯可選小／大碗，並搭配米粉、麵或米粉麵。",
+    "桌邊備有醬料；單點炸魚可乾吃或泡進羹湯。",
   ],
+  /** 羹類可搭配的主食 */
+  soupNoodles: ["米粉", "麵", "米粉麵"] as const,
 } as const;
 
 export const MENU: MenuItem[] = [
   {
     id: "w-plain",
-    name: "碗粿（不加蛋）",
+    name: "碗粿",
     nameEn: "Wa-gui",
-    description:
-      "招牌古早味碗粿，軟嫩綿密。在地人氣最高，中午前易售完。",
-    price: 30,
+    description: "招牌古早味碗粿，軟嫩綿密。店內看板 NT$ 35。",
+    price: 35,
     category: "wagui",
     image: images.wagui,
     badge: "招牌",
     popular: true,
   },
   {
-    id: "w-egg",
-    name: "碗粿（加蛋）",
-    nameEn: "Wa-gui with Egg",
-    description: "碗粿加蛋，層次更豐富。一口軟嫩懷舊味。",
-    price: 35,
-    category: "wagui",
-    image: images.wagui,
+    id: "z-classic",
+    name: "肉粽",
+    nameEn: "Meat Zongzi",
+    description: "傳統工法包製，香氣四溢。店內看板 NT$ 55。",
+    price: 55,
+    category: "zongzi",
+    image: images.zongzi,
     popular: true,
   },
   {
     id: "z-peanut",
     name: "花生粽",
     nameEn: "Peanut Zongzi",
-    description: "南部風味肉粽，花生香氣足，配蒜泥更對味。",
-    price: 40,
+    description: "南部風味，花生香氣足，配蒜泥更對味。店內看板 NT$ 45。",
+    price: 45,
     category: "zongzi",
     image: images.zongzi,
     badge: "經典",
     popular: true,
   },
   {
-    id: "z-classic",
-    name: "肉粽",
-    nameEn: "Meat Zongzi",
-    description: "傳統工法包製，香氣四溢，早餐外帶方便。",
-    price: 40,
-    category: "zongzi",
-    image: images.zongzi,
+    id: "s-pork",
+    name: "肉羹",
+    nameEn: "Pork Thick Soup",
+    description:
+      "可選小／大碗。搭配米粉、麵或米粉麵。小 NT$ 65、大 NT$ 75。",
+    price: 65,
+    priceLarge: 75,
+    category: "soup",
+    image: images.shop,
+    badge: "小 65／大 75",
   },
   {
     id: "s-fish",
-    name: "魚焿／魚羹",
+    name: "魚羹",
     nameEn: "Fish Thick Soup",
-    description: "店家主打之一，堅持傳統工法，搭配麵條或米粉。",
-    price: 55,
+    description:
+      "店家主打魚焿／魚羹。小 NT$ 70、大 NT$ 90。可選米粉、麵、米粉麵。",
+    price: 70,
+    priceLarge: 90,
     category: "soup",
     image: images.hero,
-    badge: "主打",
+    badge: "小 70／大 90",
+    popular: true,
   },
   {
     id: "s-combo",
     name: "綜合羹",
     nameEn: "Combo Thick Soup",
-    description: "羹湯搭配炸魚等配料，份量扎實，可泡魚塊同吃。",
-    price: 65,
+    description:
+      "肉羹＋魚羹綜合。小 NT$ 75、大 NT$ 95。可選米粉、麵、米粉麵。",
+    price: 75,
+    priceLarge: 95,
     category: "soup",
     image: images.hero,
-    popular: true,
+    badge: "小 75／大 95",
   },
   {
-    id: "s-pork",
-    name: "肉羹／肉羹米粉",
-    nameEn: "Pork Thick Soup",
-    description: "薄芡清甜、味道偏清淡；可加蒜泥、辣醬調味。",
-    price: 50,
-    category: "soup",
+    id: "x-veg",
+    name: "蔬活湯",
+    nameEn: "Vegetable Soup",
+    description: "清爽蔬菜湯，配肉粽或碗粿解膩。店內看板 NT$ 65。",
+    price: 65,
+    category: "side",
     image: images.shop,
   },
   {
@@ -119,8 +129,8 @@ export const MENU: MenuItem[] = [
     name: "單點炸魚",
     nameEn: "Fried Fish",
     description:
-      "在地必點。外酥內軟、魚肉鮮嫩；乾吃或泡羹湯都好吃。",
-    price: 65,
+      "在地必點。外酥內軟；乾吃或泡羹湯。店內看板 NT$ 75。",
+    price: 75,
     category: "side",
     image: images.shop,
     badge: "必點",
@@ -138,13 +148,13 @@ export const REVIEWS = [
   {
     name: "食客",
     area: "前鎮",
-    text: "碗粿不加蛋就很划算又好吃，炸魚來就是必點。勞工公園附近早餐首選。",
+    text: "碗粿 35 元很實在，炸魚來就是必點。勞工公園附近早餐首選。",
     stars: 5,
   },
   {
     name: "街坊",
     area: "高雄",
-    text: "木頭裝潢很有味道，店家親切。中午前碗粿常賣完，建議早點來。",
+    text: "羹湯有小大碗可選，配米粉或麵。中午前碗粿常賣完，建議早點來。",
     stars: 5,
   },
 ] as const;
@@ -152,6 +162,6 @@ export const REVIEWS = [
 export const CATEGORY_LABEL: Record<MenuCategory, string> = {
   wagui: "碗粿",
   zongzi: "肉粽",
-  soup: "羹湯／魚焿",
-  side: "炸魚小食",
+  soup: "羹湯",
+  side: "湯品／炸魚",
 };
