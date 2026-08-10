@@ -303,7 +303,6 @@ function Home() {
                 </p>
                 <footer className="mt-5 border-t border-border pt-4 text-sm">
                   <span className="font-medium text-fg">{r.name}</span>
-                  <span className="text-fg-subtle"> · {r.area}</span>
                 </footer>
               </blockquote>
             ))}

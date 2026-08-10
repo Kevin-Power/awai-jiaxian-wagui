@@ -89,6 +89,11 @@ export function CartDrawer() {
                         <Trash2 className="size-4" />
                       </button>
                     </div>
+                    {line.options && line.options.length > 0 && (
+                      <p className="mt-0.5 text-xs text-fg-subtle">
+                        {line.options.join("・")}
+                      </p>
+                    )}
                     <p className="mt-0.5 text-sm tabular-nums text-fg-muted">
                       NT$ {line.price}
                     </p>

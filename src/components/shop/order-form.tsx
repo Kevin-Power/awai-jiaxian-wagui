@@ -138,7 +138,13 @@ export function OrderForm() {
                 {lines.map((l) => (
                   <li key={l.id} className="flex justify-between gap-3">
                     <span>
-                      {l.name} × {l.qty}
+                      {l.name}
+                      {l.options && l.options.length > 0 && (
+                        <span className="text-fg-on-ink-muted">
+                          （{l.options.join("・")}）
+                        </span>
+                      )}{" "}
+                      × {l.qty}
                     </span>
                     <span className="tabular-nums">NT$ {l.price * l.qty}</span>
                   </li>
