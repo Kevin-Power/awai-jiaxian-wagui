@@ -1,0 +1,121 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  /* Warm paper + soy-sauce shop palette */
+  --color-bg: #f6f0e6;
+  --color-bg-elevated: #fffdf8;
+  --color-bg-subtle: #ebe3d4;
+  --color-bg-ink: #1c1410;
+  --color-bg-ink-soft: #2a201a;
+  --color-fg: #1c1410;
+  --color-fg-muted: #6b5c4d;
+  --color-fg-subtle: #8f7f6c;
+  --color-fg-on-ink: #f6f0e6;
+  --color-fg-on-ink-muted: #c9b8a4;
+  --color-primary: #8b2e1f;
+  --color-primary-hover: #6f2418;
+  --color-primary-fg: #fffdf8;
+  --color-accent: #3d5a3a;
+  --color-accent-fg: #f6f0e6;
+  --color-border: #ddd2c0;
+  --color-border-strong: #c4b59e;
+  --color-card: #fffdf8;
+  --color-ring: #8b2e1f;
+
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 1.75rem;
+  --radius-full: 9999px;
+
+  --font-display: "Noto Serif TC", "Songti TC", "PMingLiU", Georgia, serif;
+  --font-sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(28 20 16 / 0.04), 0 8px 24px rgb(28 20 16 / 0.06);
+  --shadow-card: 0 1px 1px rgb(28 20 16 / 0.03), 0 12px 32px rgb(28 20 16 / 0.08);
+
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg text-fg font-sans;
+    font-feature-settings: "kern" 1;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 22%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Subtle reveal for sections */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.5s var(--ease-smooth) both;
+}
+
+.stagger-1 {
+  animation-delay: 40ms;
+}
+.stagger-2 {
+  animation-delay: 80ms;
+}
+.stagger-3 {
+  animation-delay: 120ms;
+}
+.stagger-4 {
+  animation-delay: 160ms;
+}

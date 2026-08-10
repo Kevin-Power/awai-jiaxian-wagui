@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+
+# build
+dist/
+.vercel/
+.output/
+.nitro/
+.tanstack/
+.vinxi/
+node_modules/.nitro/
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# logs & OS
+*.log
+.DS_Store
+
+# agent / sandbox (not part of the app)
+.grok/
+AGENTS.md
+artifacts/
+screenshots/
+.project_id
+.node_modules.lock
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# TypeScript
+*.tsbuildinfo
+
+# generated (rebuilt on dev)
+src/routeTree.gen.ts
