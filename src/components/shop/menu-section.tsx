@@ -1,13 +1,16 @@
-import { useMemo, useState } from "react";
-import { Plus } from "lucide-react";
+import { useId, useMemo, useState } from "react";
+import { Check, Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   CATEGORY_LABEL,
+  CILANTRO_LABEL,
   MENU,
   SHOP,
+  SOUP_STAPLES,
   type MenuCategory,
   type MenuItem,
+  type SoupStaple,
 } from "@/data/menu";
 import { useCart } from "@/store/cart";
 import { cn } from "@/lib/utils";
@@ -31,6 +34,14 @@ const TAB_LABEL: Record<(typeof TABS)[number], string> = {
 function MenuCard({ item }: { item: MenuItem }) {
   const add = useCart((s) => s.add);
   const hasSize = item.priceLarge != null;
+  const cilantroId = useId();
+  const [staple, setStaple] = useState<SoupStaple>("米粉");
+  const [cilantro, setCilantro] = useState(false);
+
+  const addOpts = {
+    ...(item.staples ? { staple } : {}),
+    ...(item.cilantro ? { cilantro } : {}),
+  };
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-shadow duration-200 hover:shadow-card">
@@ -86,6 +97,70 @@ function MenuCard({ item }: { item: MenuItem }) {
         <p className="flex-1 text-sm leading-relaxed text-fg-muted">
           {item.description}
         </p>
+
+        {(item.staples || item.cilantro) && (
+          <div className="space-y-3 rounded-xl bg-bg-subtle p-3">
+            {item.staples && (
+              <div>
+                <p className="mb-2 text-xs font-medium text-fg-muted">
+                  選擇搭配（主食）
+                </p>
+                <div
+                  role="radiogroup"
+                  aria-label={`${item.name} 主食選擇`}
+                  className="flex flex-wrap gap-1.5"
+                >
+                  {SOUP_STAPLES.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      role="radio"
+                      aria-checked={staple === s}
+                      onClick={() => setStaple(s)}
+                      className={cn(
+                        "rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+                        staple === s
+                          ? "bg-bg-ink text-fg-on-ink"
+                          : "bg-bg-elevated text-fg-muted ring-1 ring-border hover:bg-bg hover:text-fg",
+                      )}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {item.cilantro && (
+              <label
+                htmlFor={cilantroId}
+                className="flex w-fit cursor-pointer items-center gap-2 text-xs font-medium text-fg-muted transition-colors hover:text-fg"
+              >
+                <input
+                  id={cilantroId}
+                  type="checkbox"
+                  checked={cilantro}
+                  onChange={(e) => setCilantro(e.target.checked)}
+                  className="peer sr-only"
+                />
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "flex size-4 items-center justify-center rounded border transition-colors",
+                    "peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-1",
+                    cilantro
+                      ? "border-primary bg-primary text-fg-on-ink"
+                      : "border-border bg-bg-elevated",
+                  )}
+                >
+                  {cilantro && <Check className="size-3" strokeWidth={3} />}
+                </span>
+                {CILANTRO_LABEL}
+              </label>
+            )}
+          </div>
+        )}
+
         <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
           <Badge variant="secondary">{CATEGORY_LABEL[item.category]}</Badge>
           {hasSize ? (
@@ -94,7 +169,7 @@ function MenuCard({ item }: { item: MenuItem }) {
                 type="button"
                 size="sm"
                 variant="secondary"
-                onClick={() => add(item, { size: "small" })}
+                onClick={() => add(item, { ...addOpts, size: "small" })}
                 aria-label={`加入 ${item.name} 小`}
               >
                 <Plus className="size-4" />
@@ -103,7 +178,7 @@ function MenuCard({ item }: { item: MenuItem }) {
               <Button
                 type="button"
                 size="sm"
-                onClick={() => add(item, { size: "large" })}
+                onClick={() => add(item, { ...addOpts, size: "large" })}
                 aria-label={`加入 ${item.name} 大`}
               >
                 <Plus className="size-4" />
@@ -114,7 +189,7 @@ function MenuCard({ item }: { item: MenuItem }) {
             <Button
               type="button"
               size="sm"
-              onClick={() => add(item)}
+              onClick={() => add(item, addOpts)}
               aria-label={`加入 ${item.name}`}
             >
               <Plus className="size-4" />
@@ -147,7 +222,7 @@ export function MenuSection() {
           </h2>
           <p className="mt-3 text-fg-muted">{SHOP.note}</p>
           <p className="mt-2 text-sm text-fg-subtle">
-            羹湯可搭配：{SHOP.soupNoodles.join("、")}
+            羹湯可搭配：{SHOP.soupNoodles.join("、")}，也可不搭主食（只要湯）。
           </p>
         </div>
 

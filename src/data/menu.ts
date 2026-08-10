@@ -2,6 +2,15 @@ import { images } from "@/assets/images";
 
 export type MenuCategory = "wagui" | "zongzi" | "soup" | "side";
 
+/** 羹湯可搭配的主食；「不搭主食」= 只要湯，不加米粉／麵。 */
+export const SOUP_STAPLES = ["米粉", "麵", "米粉麵", "不搭主食"] as const;
+export type SoupStaple = (typeof SOUP_STAPLES)[number];
+
+export const NO_STAPLE: SoupStaple = "不搭主食";
+
+/** 加點選項標籤（目前僅香菜，免費）。 */
+export const CILANTRO_LABEL = "加香菜";
+
 export type MenuItem = {
   id: string;
   name: string;
@@ -13,6 +22,10 @@ export type MenuItem = {
   image: string;
   badge?: string;
   popular?: boolean;
+  /** 是否提供主食（米粉／麵／米粉麵／不搭主食）選擇。 */
+  staples?: boolean;
+  /** 是否提供「加香菜」選項。 */
+  cilantro?: boolean;
 };
 
 export const SHOP = {
@@ -52,9 +65,10 @@ export const MENU: MenuItem[] = [
     description: "軟Q綿密古早味。裡頭有瘦肉與金黃菜脯，淋上醬油膏最對味。店內看板 NT$ 35。",
     price: 35,
     category: "wagui",
-    image: images.hero,
+    image: images.wagui,
     badge: "招牌",
     popular: true,
+    cilantro: true,
   },
   {
     id: "z-meat",
@@ -63,7 +77,7 @@ export const MENU: MenuItem[] = [
     description: "南部傳統工法。表面可撒厚厚花生粉 + 醬油膏，配蒜泥超香。店內看板 NT$ 55。",
     price: 55,
     category: "zongzi",
-    image: images.hero,
+    image: images.zongzi,
     badge: "招牌",
     popular: true,
   },
@@ -74,7 +88,7 @@ export const MENU: MenuItem[] = [
     description: "南部風味，花生香氣足，可再撒花生粉、配蒜泥。店內看板 NT$ 45。",
     price: 45,
     category: "zongzi",
-    image: images.hero,
+    image: images.zongzi,
   },
   {
     id: "s-meat",
@@ -85,6 +99,8 @@ export const MENU: MenuItem[] = [
     priceLarge: 75,
     category: "soup",
     image: images.hero,
+    staples: true,
+    cilantro: true,
   },
   {
     id: "s-fish",
@@ -96,6 +112,8 @@ export const MENU: MenuItem[] = [
     category: "soup",
     image: images.hero,
     popular: true,
+    staples: true,
+    cilantro: true,
   },
   {
     id: "s-combo",
@@ -106,6 +124,8 @@ export const MENU: MenuItem[] = [
     priceLarge: 95,
     category: "soup",
     image: images.hero,
+    staples: true,
+    cilantro: true,
   },
   {
     id: "s-fish-fry",
@@ -136,7 +156,7 @@ export const REVIEWS = [
   },
 ] as const;
 
-export const CATEGORY_LABELS: Record<MenuCategory, string> = {
+export const CATEGORY_LABEL: Record<MenuCategory, string> = {
   wagui: "碗粿",
   zongzi: "肉粽",
   soup: "羹湯",
